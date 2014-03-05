@@ -23,7 +23,7 @@
 -define(SERVER, ?MODULE).
 
 -record(state, {name :: atom(), 
-		base_uri :: string()}).
+		base_uri="" :: string()}).
 
 %%%===================================================================
 %%% API
@@ -34,8 +34,8 @@ ping(Name) ->
 %%--------------------------------------------------------------------
 %% @spec start_link() -> {ok, Pid} | ignore | {error, Error}
 %%--------------------------------------------------------------------
-start_link(Config) ->
-    gen_server:start_link({local, ?SERVER}, ?MODULE, Config, []).
+start_link({Name, Config}) ->
+    gen_server:start_link({local, Name}, ?MODULE, Config, []).
 
 
 %%%===================================================================
@@ -44,8 +44,8 @@ start_link(Config) ->
 %%--------------------------------------------------------------------
 %% @spec init(Args) -> {ok, State}
 %%--------------------------------------------------------------------
-init({Name, BaseUri}) ->
-    {ok, #state{name=Name, base_uri=BaseUri}}.
+init({Name, {BaseUri, ApiKey}}) ->
+    {ok, #state{name=Name, base_uri=BaseUri ++ ApiKey}}.
 
 %%--------------------------------------------------------------------
 %% @spec handle_call(Request, From, State) -> {reply, Reply, State}

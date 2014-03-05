@@ -1,0 +1,9 @@
+{application, zb,
+ [
+  {description, "Zero Bureau data source connector"},
+  {vsn, "0.1"},
+  {registered, [zb_sup, zb_server, zb_connector]},
+  {applications, [kernel, stdlib, ssl, inets]},
+  {mod, {zb_app, []}},
+  {env, [{sources_config, "sources_config.erl"}]}
+ ]}.
